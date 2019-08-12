@@ -288,8 +288,8 @@ cs %&gt;%
 <p><span style="color:red; font-family:Arial; font-size:1em;"><strong>Challenge:</strong></span> Using pipes, subset the “cs”&quot; data to include females giving birth at 8 years of age or younger and retain only the column date_of_removal. <br><br></p>
 </blockquote>
 <p>Step 4. Dealing with dates and tidyverse</p>
-<pre class="r"><code># When managing date data you should tell R that you are dealing with dates using &quot;&quot;. 
-filter(cs,date_of_birth==&quot;2011-08-05&quot;)</code></pre>
+<pre class="r"><code># When managing date data you should tell R that you are dealing with dates using as.Date(&quot;&quot;). 
+filter(cs,as.Date(date_of_birth)==as.Date(&quot;2011-08-05&quot;))</code></pre>
 <blockquote>
 <p><span style="color:red; font-family:Arial; font-size:1em;"><strong>Challenge:</strong></span> Using pipes, filter the “cs” data to include females being born after 2000-01-01 and retain only the age_at_delivery column. Give a name to your new object. <br><br></p>
 </blockquote>
