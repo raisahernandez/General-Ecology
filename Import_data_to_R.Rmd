@@ -1,0 +1,146 @@
+---
+title: 'Importing data to RStudio and getting ready to analize it'
+output: html_document
+css: style.css
+author: BIOL 350, General Ecology, California State University-Long Beach
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 800px;
+}
+</style>
+
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+</style>
+
+
+***
+Questions on the natural world can be further advanced using quantitative tools. The accumulation of data, together with advances in statistics and technology, now allow us to address questions that are no longer restricted to our own observations of the natural world. Today, the accumulation of open access (freely accessible) data can also become our raw material for observations. The purpose of this activity is for you to get familiarized with a popular programming and statistical tool that biologists use to address questions involving large amounts of data.
+<br><br>
+
+The main objectives for today are to:
+
+  + Explore R and RStudio
+  + Learn how to import data to RStudio
+ 
+<br>
+
+Resources:
+
+  + [Data Carpentry](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html)
+  
+Datasets:
+
+  + [Cayo_Santiago_female rhesus macaque data](https://doi.org/10.5061/dryad.p2c6r)
+
+***
+<br>
+<center>
+**Part I: Retrieving open access data**
+</center>
+<br>
+
+Step 1. Downloading open access data from Dryad
+<br>
+
+Dryad is one of several data repositories that we can use to get authentic published scientific data. 
+
+Open [Dryad](https://datadryad.org/pages/organization). In the keyword bar, type “Cayo Santiago”. We will use data from “Drivers of diversification in individual life courses”. Download the excel file labeled "Demographic data of Cayo Santiago female rhesus".
+<br><br>
+
+Step 2. Creating your working directory folder   
+
+Create a folder named “working_directory” in your Desktop and save the downloaded file in it. **Note:** for R to read the files of interest, you need to indicate where in your computer is your working directory.
+<br>
+
+<br><br>
+
+<center>
+**Part II: Creating and annotating your R script**
+</center>
+<br>
+
+Step 1. Saving your R script
+
+Open **RStudio**, not R. To open a new script, go to File->New File->R script and save it with a useful name in your working_directory folder.
+<br><br>
+
+Step 2. Annotating your script.
+
+Open your script and write a description of the codes you will find in it. Use a “#” before any line of text you don’t want R to interpret as a code. For example, in the beginning of today's script you may add:
+<br>
+
+```{r}
+#Intro to R and RStudio: how to import data and get ready to analyze data
+```
+
+**Note:** Remember to do annotations before any line of code so that later you can come back to your script and remember what those lines of code mean.
+<br>
+
+<br><br>
+
+<center>
+**Part III: Importing data files to RStudio**
+</center>
+<br>
+
+Step 1. Indicating working directory in RStudio
+
+In the bottom right window of RStudio, click File and search for your working_directory folder in your desktop. Once in your folder, click More->Set As Working Directory.
+<br><br>
+
+Step 2. Importing data to RStudio 
+
+In the bottom right window, click File and search for your working_directory folder in your computer. Click on the data set you downloaded from Dryad and import it using the drop down menu.  
+
+<br>
+Step 3: Let's code. Explore the structure of the dataset (type the following line in your script, click it and then hit "Run")
+
+```{r,eval=FALSE}
+# data structure
+str(Cayo_Santiago_female_rhesus_macaque_data)
+```
+<br><br>
+
+><span style="color:cyan; font-family:Arial; font-size:1em;">**Question 1:**</span> What is the class of the dataset (e.g., dataframe, table, matrix)? 
+<br><br>
+
+><span style="color:cyan; font-family:Arial; font-size:1em;">**Question 2:**</span> What is the class of each variable in the dataset (e.g., factor, integer)?  
+<br><br>
+
+><span style="color:cyan; font-family:Arial; font-size:1em;">**Question 3:**</span> How many observations and variables the dataset has?
+<br><br>
+
+<center>
+**Part IV: Making changes to the data object for easier and faster coding**
+</center>
+<br>
+
+When coding you might want to use objects with easy names that you can remember. For instance, the name of the data object "Cayo_Santiago_female_rhesus_macaque_data" is too long, let's change it for a shorter one. 
+```{r,eval=FALSE}
+# Changing the dataset's name to "cs"
+cs <- Cayo_Santiago_female_rhesus_macaque_data
+
+#Check the new object you created in the RStudio console
+cs
+
+# You may also preview the new object cs in a spreadsheet style  
+View(cs)
+```
+
+Now you are ready to start managing your data for good analysis!
+
+<br><br>
+<center>
+**FIN**
+
+<center>
+**Great Work!**
