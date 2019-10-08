@@ -433,7 +433,7 @@ pre code, pre, code {
 <p>Step 1: Explore the annual variation in temperature of coral reefs</p>
 <p>In contrast to terrestrial biomes which are dominated by plants as primary producers, aquatic biomes are categorized by flow, depth and salinity. Take for instance coral reefs. Given the corals’ dependency on solar radiation for photosynthesis and their limited tolerance to seasonal changes in water temperature, this biome is constrained to shallow waters between 30°N and 30°S. However, several decades of climate change has put this biome - the second most diverse on Earth - under threat, opening questions into the boundaries of current biomes. <br></p>
 <p>Go ahead, import “puertorico” to RStudio and explore the temperature data from coral reefs of Puerto Rico. <br><br></p>
-<p>Plot the <strong>average</strong> temperature across months of one “normal” year (2004) and one “warm” year (2005). To get a summary of descriptive statistics (mean, SD, SE, 95%CI), use the function summarySE(). The first argument in this function is the dataframe (puertorico), and the subsequent arguments are the column name of the variable to be summarized (dependent variable) and the column name containing the grouping variable (independent variable).</p>
+<p>Plot the <strong>average</strong> temperature across months of one “normal” year (2004) and one “warm” year (2005). To get a summary of descriptive statistics (mean, SD, SE, 95%CI), use the function summarySE() in package Rmisc. The first argument in this function is the dataframe (puertorico), and the subsequent arguments are the column name of the variable to be summarized (dependent variable) and the column name containing the grouping variable (independent variable).</p>
 <pre class="r"><code># Loading package tidyverse to filter data
 library(tidyverse)
 
@@ -451,6 +451,7 @@ sum04 &lt;- summarySE(pr04,&quot;SST&quot;,&quot;BM&quot;)
 sum05 &lt;- summarySE(pr05,&quot;SST&quot;,&quot;BM&quot;)
 
 # Plotting the average temperature (SST) across months (BM) in 2004 and 2005
+library(ggplot2)
 p1 &lt;- ggplot(sum04,aes(BM,SST)) +
   geom_line() +
   ylim(24,30) +
