@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="BIOL 350, General Ecology, California State University-Long Beach" />
 
 
 <title>Evolution and adaptation</title>
@@ -338,6 +336,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -370,7 +369,6 @@ summary {
 
 
 <h1 class="title toc-ignore">Evolution and adaptation</h1>
-<h4 class="author">BIOL 350, General Ecology, California State University-Long Beach</h4>
 
 </div>
 
@@ -460,10 +458,10 @@ summary(my_lm)</code></pre>
 <p><br></p>
 <p><strong>Interpreting (some of the) R output</strong></p>
 <p>Call: The first item shown in the output is the formula R used to fit the data (the formula you just wrote).</p>
-<p>Residuals: The next item in the model output are the residuals. Residuals are essentially the difference between the actual observed values from the dependent variable (femur length) and the values that the model predicted (the line). The Residuals section breaks it down into 5 summary points or descriptive statistics (minimum, first quantile, median, third quantile, maximum). These stats give you an idea of how symmetric (normally distributed) is your data.</p>
-<p>Coefficients: Remember a linear equation: y = mx + b. The coefficient Estimate contains two rows; the first one is the intercept of the line (b). The intercept, in our example, is theoretically the expected length of a femur (-1.72 mm) when SVL = 0 mm. The second row in the Coefficients is the slope, or in our example, the effect SVL (independent/explanatory variable) has in femur length (dependent/response variable). The slope term in our model is saying that for every 1 mm increase in SVL, the femur length goes up by 0.26 mm (there is a positive relationship between these two variables).</p>
+<p><strong>Residuals:</strong> The next item in the model output are the residuals. Residuals are essentially the difference between the actual observed values from the dependent variable (femur length) and the values that the model predicted (the line). The Residuals section breaks it down into 5 descriptive statistics (minimum, first quantile, median, third quantile, maximum). These stats give you an idea of how symmetric (normally distributed) is the data.</p>
+<p><strong>Coefficients:</strong> Remember a linear equation: y = mx + b. The coefficient Estimate contains two rows; the first one is the intercept of the line (b). The intercept, in our example, is the expected length of a femur (-1.72 mm) when SVL = 0 mm. The second row in the Coefficients is the slope, or in our example, the effect SVL (independent/explanatory variable) has in femur length (dependent/response variable). The slope term in our model is saying that for every 1 mm increase in SVL, the femur length goes up by 0.26 mm (there is a positive relationship between these two variables).</p>
 <p>Pr(&gt;|t|) represents the <em>p</em>-value which in our example is &lt; 0.05 (significant).</p>
-<p>Multiple R-squared, Adjusted R-squared: The R-squared statistic provides a measure of how well the linear model is fitting the actual data. It always lies between 0 and 1 (like the coefficient of correlation, a number near 0 represents a regression that does not explain the variance in the response variable well and a number close to 1 does explain the observed variance in the dependent/response variable). In our example, the R-squared we get is 0.85. Or roughly 85% of the variance found in the response variable (femur length) can be explained by the predictor variable (SVL)! That’s a good fit! <br><br></p>
+<p><strong>Multiple R-squared, Adjusted R-squared:</strong> The R-squared statistic provides a measure of how well the linear model is fitting the actual data. It always lies between 0 and 1 (like the coefficient of correlation, a number near 0 represents a regression that does not explain the variance in the response variable well and a number close to 1 does explain the observed variance in the dependent/response variable). In our example, the R-squared we get is 0.85. Or roughly 85% of the variance found in the response variable (femur length) can be explained by the predictor variable (SVL)! That’s a good fit! <br><br></p>
 <p>Step 2. Add the regression line to the figure (example below)</p>
 <pre class="r"><code># To add a fitted line to the data in ggplot2 we use stat_smooth() and se = False to fit regressions to both groups of data
 p1 + stat_smooth(method = &quot;lm&quot;, se=FALSE)</code></pre>
