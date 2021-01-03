@@ -1,0 +1,326 @@
+---
+title: "<center>Biomes and climate diagrams"
+author: "<center>*Author: Raisa Hernández-Pacheco*"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 800px;
+}
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+/* Whole document: */
+body{
+  font-family: helvetica;
+  font-size: 12pt;
+  text-align: justify;
+}
+code {white-space:pre !important; overflow-x:scroll !important;font-size:12pt; font-family:courier;}
+
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+
+.col3 {
+    columns: 3 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 3 200px; /* chrome, safari */
+    -moz-columns: 3 200px;    /* firefox */
+  }
+</style>
+
+
+<br><br>
+<style>
+div.green { background-color:#DEF4E5; border-radius: 5px; padding: 20px;
+text-align: justify}
+</style>
+<div class = "green">
+
+**OVERVIEW.** Biomes are communities of organisms with similar adaptations. They are classified according to their predominant vegetation and are characterized by the adaptations of its organisms to a shared physical environment. Biomes are often describe using climate diagrams because climate is the primary environmental factor affecting the distribution and diversity of plants. Specifically, the seasonal patterns of temperature and precipitation affect the length of the growing season of plants. Thus, monitoring these climatic variables through time using climate diagrams is important to understand the environmental factors shaping current biomes. In fact, a reconsideration of the definition of current biomes is taking place as some scientists are starting to include human population size and land use (e.g., % pasture, crops, urbanization) as other important factors shaping them. Today, we will learn to interpret climate diagrams and associate them to current biomes in order to discuss the newly proposed definition of anthropogenic biomes. 
+ 
+</div>
+
+***
+
+<br>
+
+**Student learning outcomes:**
+
+  + Interpret a climate diagram;
+  + Identify biomes given their climate diagrams;
+  + Discuss why biomes are being reconsidered in the anthropocene (anthropogenic biomes).
+
+<br>
+
+**References:**
+
+  + [Ellis EC, Ramankutty N. 2008. Frontiers in Ecology and the Environment 6:439-447.](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/070062)
+  + [Grayson KL. 2018. QUBES Educational Resources.](https://qubeshub.org/qubesresources/publications/319/1)
+  + [Hernández-Pacheco et al. 2011. Ecosphere 2(1):art9](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/ES10-00065.1)
+
+<br>
+
+**Materials:**
+
++ R and RStudio
++ Packages ggplot2, Rmisc, and tidyverse
++ [puertorico dataset](http://raisahernandez.github.io/General-Ecology/puertorico.csv)
+  
+***
+
+<br>
+
+## 1. Climate diagrams
+
+<br>
+
+**A. Identify a terrestrial biome given its climate diagram**
+
+A climate diagram is a summary of average temperature and precipitation and their time course. In ecology, they can be used to describe physical properties affecting biomes. 
+
+Let's visualize patterns of temperature and precipitation associated with three particular biomes below. 
+
+<br>
+
+<center>
+**Climate diagram A**
+
+```{r,echo=FALSE,message=FALSE,fig.height=3,fig.width=6,warning=FALSE}
+diagram <- read.csv("~/OneDrive - csulb/2-Education/Courses/BIOL350_Ecology/GenEco_R_Activities/Biomes/diagram.csv", header=TRUE)
+
+puertorico <- read.csv("~/OneDrive - csulb/2-Education/Courses/BIOL350_Ecology/GenEco_R_Activities/Biomes/puertorico.csv", header=TRUE)
+
+library(tidyverse)
+biome1 <- filter(diagram,biome==1)
+biome2 <- filter(diagram,biome==2)
+biome3 <- filter(diagram,biome==3)
+
+library(ggplot2)
+
+#Boreal forest
+p1 <- ggplot(biome1,aes(month,temp,colour="Temperature")) +
+  geom_line(size=1) +
+  theme_classic() +
+  scale_x_continuous("Month",limits=c(1,12),breaks = seq(1,12,1)) +
+  geom_line(aes(month,precip*5,colour="Precipitation"),size=1) +
+  theme(text = element_text(size=14),legend.title = element_blank(),legend.position = "top") +
+  annotate(geom="text", x=1, y=45, label="A",size=6) +
+  scale_y_continuous("Temperature (°C)",sec.axis = sec_axis(~ . /5 , breaks=seq(-2,8,2),name = "Precipitation (cm)")) 
+p1
+
+#plot(sum05$BM,sum05$SST,typ="l",ylab="SST (°C)",xlab="Month",col="red",ylim=c(25,30))
+#par(new=TRUE)
+#plot(sum04$BM,sum04$SST,typ="l",ylab="SST (°C)",xlab="Month",ylim=c(25,30))
+```
+</center>
+
+**Questions:**
+
+  a. *How many variables and what type of variables (e.g., categorical, numerical) climate diagram A has?* 
+  b. *If plant growth occurs when temperature > 0°C, how long is the plant growing season in this biome?*
+  c. *When does precipitation exceed evaporation in climate diagram A?*
+  d. *To what biome climate diagram A belongs to? Explain.* 
+
+<br>
+
+<center>
+**Climate diagram B**
+
+```{r,echo=FALSE,message=FALSE,fig.height=3,fig.width=6}
+# Woodlands/shrublands
+p2 <- ggplot(biome2,aes(month,temp,colour="Temperature")) +
+  geom_line(size=1) +
+  theme_classic() +
+  scale_x_continuous("Month",limits=c(1,12),breaks = seq(1,12,1)) +
+  geom_line(aes(month,precip*5,colour="Precipitation"),size=1) +
+  theme(text = element_text(size=14),legend.title = element_blank(),legend.position = "top") +
+  annotate(geom="text", x=1, y=45, label="B",size=6) +
+  scale_y_continuous("Temperature (°C)",sec.axis = sec_axis(~ . /5 , breaks=seq(0,8,2),name = "Precipitation (cm)"))
+p2
+```
+</center>
+
+**Questions:**
+
+  a. *If plant growth occurs when temperature > 0°C, how long is the plant growing season in this biome?*
+  b. *When does evaporation exceed precipitation in climate diagram B?*
+  c. *To what biome climate diagram B belongs to? Explain.* 
+
+<br>
+
+<center>
+**Climate diagram C**
+
+```{r,echo=FALSE,message=FALSE,fig.height=3,fig.width=6}
+# Tropical rainforest
+p3 <- ggplot(biome3,aes(month,temp,colour="Temperature")) +
+  geom_line(size=1) +
+  theme_classic() +
+  scale_x_continuous("Month",limits=c(1,12),breaks = seq(1,12,1)) +
+  geom_line(aes(month,precip*5,colour="Precipitation"),size=1) +
+  theme(text = element_text(size=14),legend.title = element_blank(),legend.position = "top") +
+  annotate(geom="text", x=1, y=70, label="C",size=6) +
+  scale_y_continuous("Temperature (°C)",limits=c(0,70),breaks = seq(0,70,10),sec.axis = sec_axis(~ . /5 , breaks=seq(0,14,2),name = "Precipitation (cm)"))
+p3
+```
+</center>
+
+**Questions:**
+
+  a. *If plant growth occurs when temperature > 0°C, how long is the plant growing season in this biome?*
+  b. *When does evaporation exceed precipitation in climate diagram C?*
+  c. *Estimate the mean annual temperature and precipitation of this biome.*
+  d. *To what biome climate diagram B belongs to? Explain.* 
+
+<br>
+
+## 2. Biomes and climate change
+
+Let's consider here coral reefs. Given the corals' dependency on solar radiation for photosynthesis and their limited tolerance to seasonal changes in water temperature, this biome is constrained to shallow waters between 30°N and 30°S. However, several decades of climate change and global warming has threatened this biome, motivating questions about its physical boundaries. 
+
+Let's first explore the observed changes in temperature experienced by these biomes and their consequences in Puerto Rico.
+
+<br>
+
+**A. Import the "puertorico" dataset into RStudio**
+
+Let's import and explore the "puertorico" data. For this, save the data file in your computer "as page source".
+
+```{r,eval=FALSE}
+# importing the data
+puertorico <- read.csv("puertorico.csv",header=TRUE)
+
+# viewing the data
+View(puertorico)
+```
+
+<br>
+
+**Questions:**
+
+  a. *What are the variables of interest?*
+  b. *How many observations do we have for each variable?*
+
+<br>
+
+**B. Estimate the mean monthly temperature of coral reefs**
+
+Let's plot the *mean monthly temperature* of a "normal" year (2004) and a "warm" year (2005). To do this, we first filter the data by these two years. For this, we use the function **filter()** from the tidyverse package. The first argument in this function is the dataframe, and the subsequent argument is the filtering condition.
+
+```{r,eval=FALSE}
+# Loading package tidyverse
+library(tidyverse)
+
+# Filtering data from 2004 
+pr04 <- filter(puertorico,BYYY==2004)
+
+# Viewing the data
+View(pr04)
+
+# Filtering data from 2005
+pr05 <- filter(puertorico,BYYY==2005)
+
+# Viewing the data
+View(pr05)
+```
+
+<br>
+
+To get a summary of descriptive statistics of our temperature data, we use the function **summarySE()** in the Rmisc package. The first argument in this function is the dataframe, and the subsequent arguments are the name of the column containing the variable to be summarized (response variable) and the name of the column containing the grouping variable (explanatory variable). 
+
+```{r,eval=FALSE}
+# Loading package Rmisc 
+library(Rmisc)
+
+# summary statistics for year 2004
+sum04 <- summarySE(pr04,"SST","BM")
+sum04
+
+# summary statistics for year 2005
+sum05 <- summarySE(pr05,"SST","BM")
+sum05
+```
+
+<br>
+
+**C. Plot the variation in mean monthly temperature of coral reefs**
+
+Let's use the newly created summary statistics in R objects *sum04* and *sum05* using the ggplot2 package.
+```{r,eval=FALSE}
+# loading the package ggplot2
+library(ggplot2)
+
+# Plotting the average temperature (SST) across months (BM) in 2004 
+p1 <- ggplot(sum04,aes(BM,SST)) +
+  geom_line() +
+  ylim(24,30) +
+  theme_classic()+
+  scale_x_continuous("Month",breaks=seq(1,12,1)) 
+
+p1
+
+# Plotting the average temperature (SST) across months (BM) in 2005 
+p2 <- ggplot(sum05,aes(BM,SST)) +
+  geom_line() +
+  ylim(24,30) +
+  theme_classic()+
+  scale_x_continuous("Month",breaks=seq(1,12,1))
+
+p2
+```
+
+<br>
+
+**Questions:**
+
+  a. *Do you observe any difference in mean monthly temperature between both years? Explain.*
+  b. *If the historical mean monthly maximum for this region is 28.5°C and the bleaching threshold is 29.5°C, how many weeks of thermal stress these corals experienced in 2005 versus 2004 (approximately)?*
+  c. *The expected temperature in this biome is better represented by year 2004. What would happen if year 2005 becomes the new normal? How would this affect our current definition of this biome?* 
+
+<br>
+
+**Coral bleaching** is the loss of color a coral experiences after expelling their symbiotic algae from their tissue. Bleaching occurs when corals experience stress due to higher than average temperatures, among other reasons. If coral bleaching takes place for prolong periods of time, corals are likely to die from starvation due to the absence of food from the algae's photosynthesis (Figure 1).
+
+<br>
+
+```{r, echo=FALSE,fig.align="left", fig.width=8,fig.height=6, fig.cap="Figure 1. Temporal sequence of one photo-transect showing the same *Orbicella annularis* colonies in 2001 (A), 2003-2007 (B-F). The arrows points toward the same colony in different years. By 2007, two years after the 2005 mass bleaching (D), the coral colony was dead. Hernández-Pacheco et al. 2011."}
+library(png)
+library(grid)
+img <- readPNG("2005bleaching.png")
+grid.raster(img)
+```
+
+<br>
+
+<span style='color:#2724ed; font-size:150%; font-weight:600'> Challenge 1:</span> Using today's analysis and previous knowledge, make inferences about the potential consequences of climate change on this biome's boundaries. For example, what do you predict will happen if the rate of climate change is higher than the rate of evolution within coral populations? How would this affect our current definition of this biome?
+
+<br>
+
+## 3. Anthropogenic biomes
+
+Erle Ellis and Navin Ramankutty (2008) proposed a reconsideration of biomes. In their model, they considered human population, land use (% pasture, crops, irrigation, rice, urban), and land cover (% vegetated) as important factors affecting the distribution of biomes. Their analysis identifies 6 major groups of biomes (Figure 2).
+
+<br>
+
+```{r, echo=FALSE,fig.align="center", fig.width=8,fig.height=6, fig.cap="Figure 2. Anthropogenic biomes (Ellis and Ramankutty 2008)."}
+img <- readPNG("AnthroBiomes.png")
+grid.raster(img)
+```
+
+<br>
+
+<span style='color:#2724ed; font-size:150%; font-weight:600'> Challenge 2:</span>  Compare Ellis and Ramankutty's model with current models of terrestrial biomes. For example, do you think is it meaningful to discuss about the primary productivity of a tropical seasonal forest biome when most of the native forest have been turned into fertilizer-supplemented and artificially irrigated croplands?
+
+<br>
+
+<center>
+**Great Work!**
